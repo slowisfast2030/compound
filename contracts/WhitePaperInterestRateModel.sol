@@ -33,6 +33,12 @@ contract WhitePaperInterestRateModel is InterestRateModel {
      * @param baseRatePerYear The approximate target base APR, as a mantissa (scaled by BASE)
      * @param multiplierPerYear The rate of increase in interest rate wrt utilization (scaled by BASE)
      */
+
+    // baseRatePerYear = 0.05 * 1e18
+    // multiplierPerYear = 0.45 * 1e18
+    // 这两个参数为何scaled by BASE? 
+    // 进而baseRatePerBlock和multiplierPerBlock也scaled by BASE
+
     constructor(uint baseRatePerYear, uint multiplierPerYear) public {
         baseRatePerBlock = baseRatePerYear / blocksPerYear;
         multiplierPerBlock = multiplierPerYear / blocksPerYear;
@@ -47,6 +53,8 @@ contract WhitePaperInterestRateModel is InterestRateModel {
      * @param reserves The amount of reserves in the market (currently unused)
      * @return The utilization rate as a mantissa between [0, BASE]
      */
+
+     // utilizationRate也放大了BASE倍，为何？
     function utilizationRate(uint cash, uint borrows, uint reserves) public pure returns (uint) {
         // Utilization rate is 0 when there are no borrows
         if (borrows == 0) {
@@ -65,6 +73,10 @@ contract WhitePaperInterestRateModel is InterestRateModel {
      */
     function getBorrowRate(uint cash, uint borrows, uint reserves) override public view returns (uint) {
         uint ur = utilizationRate(cash, borrows, reserves);
+        // ur放大了BASE倍
+        // multiplierPerBlock放大了BASE倍
+        // baseRatePerBlock放大了BASE倍
+        // 为了使得最终的borrowRate放大了BASE倍，所以这里需要除以BASE
         return (ur * multiplierPerBlock / BASE) + baseRatePerBlock;
     }
 
@@ -77,9 +89,14 @@ contract WhitePaperInterestRateModel is InterestRateModel {
      * @return The supply rate percentage per block as a mantissa (scaled by BASE)
      */
     function getSupplyRate(uint cash, uint borrows, uint reserves, uint reserveFactorMantissa) override public view returns (uint) {
+        // oneMinusReserveFactor本质上是一个百分比，表示可以借出去的钱的比例。这里放大了BASE倍
         uint oneMinusReserveFactor = BASE - reserveFactorMantissa;
+        // borrowRate放大了BASE倍
         uint borrowRate = getBorrowRate(cash, borrows, reserves);
+        // rateToPool放大了BASE倍
         uint rateToPool = borrowRate * oneMinusReserveFactor / BASE;
+        // utilizationRate放大了BASE倍，rateToPool放大了BASE倍，所以最终的存款利率放大了BASE倍
         return utilizationRate(cash, borrows, reserves) * rateToPool / BASE;
+        // 总结起来就是：存款利率 = 资金使用率 * 借款利率 *（1 - 储备金率）
     }
 }
