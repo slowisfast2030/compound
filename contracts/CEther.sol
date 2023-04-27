@@ -97,6 +97,9 @@ contract CEther is CToken {
     // 盲猜一下：这里的borrowAmount是用户想要借入的ETH数量。
     // 首先会调用审计合约函数，检查用户是否可以借入这么多的ETH。
     // 如果允许，就会从资金池转入这么多的ETH到用户的地址。
+    // 合约的资金池的余额是balance，用户的地址是msg.sender。
+    // 从资金流向的角度来看，borrow和redeem是一样的，都是从资金池流向用户的地址。
+    // 从代码的角度来看，实现逻辑也比较类似。
     function borrow(uint borrowAmount) external returns (uint) {
         borrowInternal(borrowAmount);
         return NO_ERROR;

@@ -627,6 +627,10 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
         doTransferOut(borrower, borrowAmount);
 
         /* We emit a Borrow event */
+        // borrower是借款人
+        // borrowAmount是这一次所借的ETH的数量
+        // accountBorrowsNew是借款人的历史上总共的借款数量
+        // totalBorrowsNew是所有借款人的总的借款数量
         emit Borrow(borrower, borrowAmount, accountBorrowsNew, totalBorrowsNew);
     }
 
