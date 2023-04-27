@@ -19,6 +19,10 @@ contract CEther is CToken {
      * @param decimals_ ERC-20 decimal precision of this token
      * @param admin_ Address of the administrator of this token
      */
+    
+    // 这个构造函数，是CEther合约部署时，需要传入的参数。
+    // 这个合约主要是为了存入ETH，所以需要传入Comptroller合约地址，InterestRateModel合约地址，初始的兑换率，名称，符号，精度，管理员地址。
+    // ETH的名称是ETH，符号是ETH，精度是18位。
     constructor(ComptrollerInterface comptroller_,
                 InterestRateModel interestRateModel_,
                 uint initialExchangeRateMantissa_,
@@ -43,6 +47,8 @@ contract CEther is CToken {
      * @dev Reverts upon any failure
      */
     // 发放的cToken仅仅是一个数字，记账在合约当中，不会真的转移给用户。
+    // 当CEther合约部署后，如果我们需要存入ETH，就需要调用这个方法。这个方法被payable修饰，意味着可以接受ETH。
+    // 接受的ETH数量是msg.value。发送ETH的地址是msg.sender。
     function mint() external payable {
         mintInternal(msg.value);
     }
