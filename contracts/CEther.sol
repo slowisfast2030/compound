@@ -131,6 +131,10 @@ contract CEther is CToken {
      * @param borrower The borrower of this cToken to be liquidated
      * @param cTokenCollateral The market in which to seize collateral from the borrower
      */
+    /**
+    清算，任何人都可以调用此函数来担任清算人，直接借款人、还款金额和清算的 cToken 资产，
+    清算时，清算人帮借款人代还款，并得到借款人所抵押的等值+清算奖励的 cToken 资产。
+     */
     function liquidateBorrow(address borrower, CToken cTokenCollateral) external payable {
         liquidateBorrowInternal(borrower, msg.value, cTokenCollateral);
     }
