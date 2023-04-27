@@ -438,7 +438,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          * We get the current exchange rate and calculate the number of cTokens to be minted:
          *  mintTokens = actualMintAmount / exchangeRate
          */
-
+        // 为什么不直接做除法呢？非要定义一个函数？
         uint mintTokens = div_(actualMintAmount, exchangeRate);
 
         /*
