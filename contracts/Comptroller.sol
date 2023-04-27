@@ -231,6 +231,10 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
      * @param mintAmount The amount of underlying being supplied to the market in exchange for tokens
      * @return 0 if the mint is allowed, otherwise a semi-opaque error code (See ErrorReporter.sol)
      */
+    /**
+    uint allowed = comptroller.mintAllowed(address(this), minter, mintAmount);
+    调用代码
+     */
     function mintAllowed(address cToken, address minter, uint mintAmount) override external returns (uint) {
         // Pausing is a very serious situation - we revert to sound the alarms
         require(!mintGuardianPaused[cToken], "mint is paused");
