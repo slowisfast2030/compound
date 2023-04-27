@@ -233,24 +233,37 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
      */
     /**
     uint allowed = comptroller.mintAllowed(address(this), minter, mintAmount);
-    调用代码
+    CEther.sol合约中的调用代码
      */
     function mintAllowed(address cToken, address minter, uint mintAmount) override external returns (uint) {
         // Pausing is a very serious situation - we revert to sound the alarms
+        // mintGuardianPaused是一个字典，key是cToken地址，value是bool值，如果为true，表示该cToken已经被暂停了。
+        // 当然，storage mapping默认的value是false
         require(!mintGuardianPaused[cToken], "mint is paused");
 
         // Shh - currently unused
         minter;
         mintAmount;
 
+        // markets是一个mapping。key是cToken地址，value是Market类型的结构体。
         if (!markets[cToken].isListed) {
+            // Error是一个枚举类型，MARKET_NOT_LISTED是其中一个值。
             return uint(Error.MARKET_NOT_LISTED);
         }
 
         // Keep the flywheel moving
+        /**
+        在Compound协议中，每个市场（如ETH、DAI等）都有一个供应和借贷指数。
+        供应指数跟踪在该市场上存入的资产，而借贷指数跟踪在该市场上借出的资产。
+        这些指数随着时间的推移而增加，这意味着供应者和借款人所持有的代币可获得更多的利息或费用。 
+        计算每个市场的供应和借贷指数是Compound计算利息的重要组成部分。
+        在Solidity合约中，每个市场的供应和借贷指数被视为MarketState结构体中的一部分，
+        并在更新时进行相应的修改。
+         */
         updateCompSupplyIndex(cToken);
         distributeSupplierComp(cToken, minter);
 
+        // NO_ERROR是一个枚举类型，值为0
         return uint(Error.NO_ERROR);
     }
 
@@ -1184,6 +1197,7 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
         }
     }
 
+    // 对于一些知名的源码，如果你看不懂某一个函数，大可以直接复制下来，直接问chatgpt！
     /**
      * @notice Accrue COMP to the market by updating the supply index
      * @param cToken The market whose supply index to update
