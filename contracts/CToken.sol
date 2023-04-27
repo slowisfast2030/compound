@@ -732,6 +732,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
         }
 
         // liquidateBorrowFresh emits borrow-specific logs on errors, so we don't need to
+        // 下面的函数语义：msg.sender替borrower还款repayAmount个ETH，同时获得cTokenCollateral个cEther。
         liquidateBorrowFresh(msg.sender, borrower, repayAmount, cTokenCollateral);
     }
 

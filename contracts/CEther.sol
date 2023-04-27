@@ -137,6 +137,10 @@ contract CEther is CToken {
      */
     // 注意这里的函数修饰符：payable。意味着这个函数可以接受ETH。也就是说，清算人向合约发送ETH。
     // 任何人都可以调用这个函数，付出的是ETH，得到的是CEther。
+    // 有一个疑问：如果我向资金池存储了ETH，获得了CEther。如果我想借入DAI，怎么办呢？
+    // 对于借贷，需要明确一个基本概念：抵押物是CEther，借出的是ETH。从下面函数的参数类型可以看出来。
+    // 执行清算的时候，清算人需要向合约发送ETH，得到的是CEther。
+    // 注意函数的修饰符：payable。意味着这个函数可以接受ETH。
     function liquidateBorrow(address borrower, CToken cTokenCollateral) external payable {
         liquidateBorrowInternal(borrower, msg.value, cTokenCollateral);
     }
