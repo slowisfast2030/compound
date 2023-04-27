@@ -268,6 +268,14 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
         计算每个市场的供应和借贷指数是Compound计算利息的重要组成部分。
         在Solidity合约中，每个市场的供应和借贷指数被视为MarketState结构体中的一部分，
         并在更新时进行相应的修改。
+
+        supply index是一个累积的比率，表示每个cToken所对应的底层代币的数量。
+        举个例子，假设用户在Compound协议中存入了100个DAI，而DAI对应的cToken是cDAI。
+        假设当时的supply index是1，也就是说每个cDAI等于1个DAI。那么用户会收到100个cDAI作为存款凭证。
+        随着时间的推移，由于市场中有借款需求，存款者会获得利息，这会导致supply index增加。
+        假设一段时间后，supply index变为1.05，也就是说每个cDAI等于1.05个DAI。
+        那么用户可以随时赎回他们的cDAI，按照当前的supply index兑换成底层代币。
+        也就是说，用户可以用100个cDAI换回105个DAI，相当于获得了5%的利息收益。
          */
         updateCompSupplyIndex(cToken);
         distributeSupplierComp(cToken, minter);
