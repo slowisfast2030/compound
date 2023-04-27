@@ -1117,6 +1117,8 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
 
         // Ensure invoke newInterestRateModel.isInterestRateModel() returns true
         // newInterestRateModel是利率合约的地址。利率合约必须实现isInterestRateModel方法，返回true。
+        // 在solidity中，require可以用来防止出现安全问题。这里就是防止利率合约地址错误。
+        // 正确的利率合约，对于维护整个系统的安全和稳定至关重要！！！
         require(newInterestRateModel.isInterestRateModel(), "marker method returned false");
 
         // Set the interest rate model to newInterestRateModel
