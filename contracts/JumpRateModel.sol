@@ -45,6 +45,7 @@ contract JumpRateModel is InterestRateModel {
      * @param kink_ The utilization point at which the jump multiplier is applied
      */
     constructor(uint baseRatePerYear, uint multiplierPerYear, uint jumpMultiplierPerYear, uint kink_) public {
+        // 下面这几个参数都是scaled by BASE
         baseRatePerBlock = baseRatePerYear / blocksPerYear;
         multiplierPerBlock = multiplierPerYear / blocksPerYear;
         jumpMultiplierPerBlock = jumpMultiplierPerYear / blocksPerYear;
@@ -77,14 +78,19 @@ contract JumpRateModel is InterestRateModel {
      * @return The borrow rate percentage per block as a mantissa (scaled by BASE)
      */
     function getBorrowRate(uint cash, uint borrows, uint reserves) override public view returns (uint) {
+        // util放大了BASE倍
         uint util = utilizationRate(cash, borrows, reserves);
-
+        // kink也放大了BASE倍
         if (util <= kink) {
             return (util * multiplierPerBlock / BASE) + baseRatePerBlock;
         } else {
+            // normalRate的值就是将kink代入未到拐点前的公式得到的y值
             uint normalRate = (kink * multiplierPerBlock / BASE) + baseRatePerBlock;
+            // excessUtil是超出拐点的部分
             uint excessUtil = util - kink;
+            // 从直线方程的一般角度去理解：选定直线上的一个点，然后看当前点和选定点的距离，然后乘以斜率，再加上选定点的y值，就是当前点的y值
             return (excessUtil * jumpMultiplierPerBlock/ BASE) + normalRate;
+            // y = k2*(x - p) + (k*p + b)
         }
     }
 
