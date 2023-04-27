@@ -5,8 +5,10 @@ import "./ComptrollerInterface.sol";
 import "./InterestRateModel.sol";
 
 import "./CTokenInterfaces.sol";
-import "./ErrorReporter.sol";
+
 import "./EIP20Interface.sol";
+
+import "./ErrorReporter.sol";
 import "./ExponentialNoError.sol";
 
 /**
