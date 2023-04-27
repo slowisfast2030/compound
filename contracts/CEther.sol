@@ -42,6 +42,7 @@ contract CEther is CToken {
      * @notice Sender supplies assets into the market and receives cTokens in exchange
      * @dev Reverts upon any failure
      */
+    // 发放的cToken仅仅是一个数字，记账在合约当中，不会真的转移给用户。
     function mint() external payable {
         mintInternal(msg.value);
     }

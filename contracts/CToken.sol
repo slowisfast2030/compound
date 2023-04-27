@@ -440,6 +440,8 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          * And write them into storage
          */
         totalSupply = totalSupply + mintTokens;
+        // accountTokens变量是一个mapping，key是address，value是uint。记录了每个用户的cToken数量。
+        // 并没有看见实际将cToken转给用户的操作，所以这里的accountTokens只是记录了用户的cToken数量，但是并没有实际转给用户。
         accountTokens[minter] = accountTokens[minter] + mintTokens;
 
         /* We emit a Mint event, and a Transfer event */
