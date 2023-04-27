@@ -5,6 +5,7 @@ git push
 # https://docs.compound.finance/v2/ctokens/ 
 # 极其牛逼的资料
 
+# 这竟然也是多行注释
 <<COMMENT
 Compound 中每增加一个借贷市场（即资金池）的时候，都需要部署几个合约：
 JumpRateModelV2：利率模型合约
