@@ -56,7 +56,12 @@ contract CEther is CToken {
     // 发放的cToken仅仅是一个数字，记账在合约当中，不会真的转移给用户。
     // 当CEther合约部署后，如果我们需要存入ETH，就需要调用这个方法。这个方法被payable修饰，意味着可以接受ETH。
     // 接受的ETH数量是msg.value。发送ETH的地址是msg.sender。
+    // 一个简单的猜测：这里一个储户可以给mint函数发送ETH，那么审计合约就需要检查，这个储户发送的是否是ETH。
     function mint() external payable {
+        // 一个好奇：这里的Internal啥意思？意味着mintInternal函数是一个internal函数。
+        /**Internal functions can only be accessed from within the current contract or contracts deriving from it. 
+        They cannot be accessed externally.  
+         */
         mintInternal(msg.value);
     }
 
