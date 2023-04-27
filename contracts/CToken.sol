@@ -429,6 +429,9 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          *  in case of a fee. On success, the cToken holds an additional `actualMintAmount`
          *  of cash.
          */
+        // 这个函数如果通过ide跳转，是一个函数接口，并未给出实现。
+        // 一开始会觉得很奇怪，但深度思考后发现，对于继承来说，CToken中的所有函数都被import进了CEther合约中了。
+        // 所以，这里的doTransferIn函数其实是CEther中实现的函数。
         uint actualMintAmount = doTransferIn(minter, mintAmount);
 
         /*
@@ -1146,6 +1149,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
      *  This may revert due to insufficient balance or insufficient allowance.
      */
     function doTransferIn(address from, uint amount) virtual internal returns (uint);
+    // 非常奇怪的点：这里定义了接口，在CEther中才给了具体的实现。
 
     /**
      * @dev Performs a transfer out, ideally returning an explanatory error code upon failure rather than reverting.
