@@ -18,7 +18,10 @@ contract SimplePriceOracle is PriceOracle {
         return asset;
     }
 
+    // 这里的cToken，其实是合约地址。因为后面会调用合约函数。
     function getUnderlyingPrice(CToken cToken) public override view returns (uint) {
+        // 如果通过这种方式可以获取标的资产价格，除非prices字典中预先存取了标的资产价格，否则会返回0。
+        // 但这似乎又不成立
         return prices[_getUnderlyingAddress(cToken)];
     }
 
