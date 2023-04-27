@@ -23,6 +23,9 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
      * @param symbol_ EIP-20 symbol of this token
      * @param decimals_ EIP-20 decimal precision of this token
      */
+    // ComptrollerInterface和InterestRateModel都是抽象合约类型，可以用作数据类型
+    // 这里是需要调用这两个合约的方法，所以需要传入这两个合约的地址
+    // 这里就是典型的合约组合，一个合约里面包含了另外两个合约的实例
     function initialize(ComptrollerInterface comptroller_,
                         InterestRateModel interestRateModel_,
                         uint initialExchangeRateMantissa_,

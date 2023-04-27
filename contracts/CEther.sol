@@ -28,7 +28,7 @@ contract CEther is CToken {
                 address payable admin_) {
         // Creator of the contract is admin during initialization
         admin = payable(msg.sender);
-
+        // 原来如此。CToken中定义的initialize方法，在这里使用了。
         initialize(comptroller_, interestRateModel_, initialExchangeRateMantissa_, name_, symbol_, decimals_);
 
         // Set the proper admin now that initialization is done
