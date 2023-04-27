@@ -31,6 +31,7 @@ contract CEther is CToken {
                 uint8 decimals_,
                 address payable admin_) {
         // Creator of the contract is admin during initialization
+        // 一个奇怪的点：这里的admin是一个payable的地址。因为构造函数中的admin_是payable的。后面有赋值操作。
         admin = payable(msg.sender);
         // 原来如此。CToken中定义的initialize方法，在这里使用了。
         initialize(comptroller_, interestRateModel_, initialExchangeRateMantissa_, name_, symbol_, decimals_);
