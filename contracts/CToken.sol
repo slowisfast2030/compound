@@ -614,6 +614,9 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          * We write the previously calculated values into storage.
          *  Note: Avoid token reentrancy attacks by writing increased borrow before external transfer.
         `*/
+        // accountBorrows是一个mapping。key是借贷人，value是一个结构体。
+        // 结构体有两个变量。第一个是借贷人总共所借的ETH的数量。
+        // 第二个是借贷指数。这个变量是在审计合约里进行更新。
         accountBorrows[borrower].principal = accountBorrowsNew;
         accountBorrows[borrower].interestIndex = borrowIndex;
         totalBorrows = totalBorrowsNew;
