@@ -6,6 +6,8 @@ import "./InterestRateModel.sol";
 import "./EIP20NonStandardInterface.sol";
 import "./ErrorReporter.sol";
 
+// 这个合约只定义了一些变量，没有定义任何方法
+// storage variables
 contract CTokenStorage {
     /**
      * @dev Guard variable for re-entrancy checks
@@ -115,6 +117,8 @@ abstract contract CTokenInterface is CTokenStorage {
     /**
      * @notice Indicator that this is a CToken contract (for inspection)
      */
+    
+    // 为啥要定义这个常量？难道后面要做什么检查？
     bool public constant isCToken = true;
 
 
