@@ -10,6 +10,15 @@ import "./Unitroller.sol";
 import "./Governance/Comp.sol";
 
 /**
+The Comptroller is the risk management layer of the Compound protocol; 
+it determines how much collateral a user is required to maintain, and whether (and by how much) a user can be liquidated. 
+Each time a user interacts with a cToken, the Comptroller is asked to approve or deny the transaction.
+Comptroller 是 Compound 协议的风险管理层；
+它决定了用户需要维持多少抵押品，以及用户是否（以及多少）可以被清算。
+每次用户与 cToken 交互时，都会要求审计员批准或拒绝交易。
+ */
+
+/**
  * @title Compound's Comptroller Contract
  * @author Compound
  */
