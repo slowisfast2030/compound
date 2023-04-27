@@ -1,4 +1,4 @@
 git pull
 git add *
-git commit -m 'all is well'
+git commit -m 'slow is fast'
 git push
