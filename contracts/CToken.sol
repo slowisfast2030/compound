@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: BSD-3-Clause
 pragma solidity ^0.8.10;
 
-import "./ComptrollerInterface.sol";
-import "./InterestRateModel.sol";
+import "./ComptrollerInterface.sol"; // 审计合约的接口
+import "./InterestRateModel.sol"; // 利率合约的接口
 
 import "./CTokenInterfaces.sol";
 
-import "./EIP20Interface.sol";
+import "./EIP20Interface.sol"; // erc20代币的接口
 
 import "./ErrorReporter.sol";
 import "./ExponentialNoError.sol";
