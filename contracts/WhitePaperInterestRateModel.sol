@@ -11,6 +11,11 @@ import "./InterestRateModel.sol";
 contract WhitePaperInterestRateModel is InterestRateModel {
     event NewInterestParams(uint baseRatePerBlock, uint multiplierPerBlock);
 
+    /**
+    This particular constant variable BASE is often used in smart contracts as a scaling factor for decimal numbers. 
+    For example, if a smart contract was dealing with Ether transactions, 
+    then the amount of ether would be represented as wei, where one ether is equal to 1e18 wei.
+     */
     uint256 private constant BASE = 1e18;
 
     /**
