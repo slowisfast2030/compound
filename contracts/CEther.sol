@@ -150,6 +150,8 @@ contract CEther is CToken {
      * @return The quantity of Ether owned by this contract
      */
     function getCashPrior() override internal view returns (uint) {
+        // 这个设计！！！减去了当前的msg.value。这个msg.value是用户发送的ETH。
+        // 思考的真是全面!
         return address(this).balance - msg.value;
     }
 
