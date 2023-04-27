@@ -1116,6 +1116,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
         oldInterestRateModel = interestRateModel;
 
         // Ensure invoke newInterestRateModel.isInterestRateModel() returns true
+        // newInterestRateModel是利率合约的地址。利率合约必须实现isInterestRateModel方法，返回true。
         require(newInterestRateModel.isInterestRateModel(), "marker method returned false");
 
         // Set the interest rate model to newInterestRateModel

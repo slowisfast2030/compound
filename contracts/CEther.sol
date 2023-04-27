@@ -33,12 +33,18 @@ contract CEther is CToken {
         // Creator of the contract is admin during initialization
         // 一个奇怪的点：这里的admin是一个payable的地址。因为构造函数中的admin_是payable的。后面有赋值操作。
         admin = payable(msg.sender);
+
         // 原来如此。CToken中定义的initialize方法，在这里使用了。
         initialize(comptroller_, interestRateModel_, initialExchangeRateMantissa_, name_, symbol_, decimals_);
 
         // Set the proper admin now that initialization is done
         admin = admin_;
     }
+    /**
+    这里给了一个很好的示例：一个合约中需要调用另一个合约的函数。
+    在python语言中，如果A类需要调用B类的函数，那么可以在A类的构造函数中，传入B类的实例。或者在A类的某个方法中，传入B类的实例。
+    在solidity语言中，如果A合约需要调用B合约的函数，那么可以在A合约的构造函数中，传入B合约的地址。或者在A合约的某个方法中，传入B合约的地址。
+     */
 
 
     /*** User Interface ***/
