@@ -2,10 +2,11 @@
 pragma solidity ^0.8.10;
 
 import "./ComptrollerInterface.sol";
+import "./InterestRateModel.sol";
+
 import "./CTokenInterfaces.sol";
 import "./ErrorReporter.sol";
 import "./EIP20Interface.sol";
-import "./InterestRateModel.sol";
 import "./ExponentialNoError.sol";
 
 /**
