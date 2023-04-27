@@ -94,6 +94,9 @@ contract CEther is CToken {
       * @param borrowAmount The amount of the underlying asset to borrow
       * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
       */
+    // 盲猜一下：这里的borrowAmount是用户想要借入的ETH数量。
+    // 首先会调用审计合约函数，检查用户是否可以借入这么多的ETH。
+    // 如果允许，就会从资金池转入这么多的ETH到用户的地址。
     function borrow(uint borrowAmount) external returns (uint) {
         borrowInternal(borrowAmount);
         return NO_ERROR;
