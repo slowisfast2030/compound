@@ -109,6 +109,8 @@ contract CEther is CToken {
      * @notice Sender repays their own borrow
      * @dev Reverts upon any failure
      */
+    // 注意这个函数的修饰符：payable。意味着这个函数可以接受ETH。
+    // 当我们要还款的时候，就可以调用这个函数，将ETH发送给合约。
     function repayBorrow() external payable {
         repayBorrowInternal(msg.value);
     }
