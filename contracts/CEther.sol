@@ -135,6 +135,8 @@ contract CEther is CToken {
     清算，任何人都可以调用此函数来担任清算人，直接借款人、还款金额和清算的 cToken 资产，
     清算时，清算人帮借款人代还款，并得到借款人所抵押的等值+清算奖励的 cToken 资产。
      */
+    // 注意这里的函数修饰符：payable。意味着这个函数可以接受ETH。也就是说，清算人向合约发送ETH。
+    // 任何人都可以调用这个函数，付出的是ETH，得到的是CEther。
     function liquidateBorrow(address borrower, CToken cTokenCollateral) external payable {
         liquidateBorrowInternal(borrower, msg.value, cTokenCollateral);
     }
