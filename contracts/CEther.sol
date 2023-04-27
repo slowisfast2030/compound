@@ -71,6 +71,8 @@ contract CEther is CToken {
      * @param redeemTokens The number of cTokens to redeem into underlying
      * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
      */
+    // 这里会进行赎回存储资产的操作。输入的参数是cToken的数量。
+    // 一个猜测：函数内部肯定会对cToken的数量进行检查。如果赎回的数量超过了用户的cToken数量，那么就会报错。
     function redeem(uint redeemTokens) external returns (uint) {
         redeemInternal(redeemTokens);
         return NO_ERROR;
