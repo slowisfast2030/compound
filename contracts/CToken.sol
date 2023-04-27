@@ -403,6 +403,8 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
      */
     function mintFresh(address minter, uint mintAmount) internal {
         /* Fail if mint not allowed */
+        // comptroller是审计合约的地址。这里既然可以直接引用，说明其是一个storage variable。要么在当前合约定义，要么在父合约进行了定义！
+        // address(this)表示当前合约的地址。进一步思考：这里是CToken的地址，还是CEther的地址呢？
         uint allowed = comptroller.mintAllowed(address(this), minter, mintAmount);
         if (allowed != 0) {
             revert MintComptrollerRejection(allowed);
