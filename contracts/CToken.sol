@@ -544,6 +544,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          * We write the previously calculated values into storage.
          *  Note: Avoid token reentrancy attacks by writing reduced supply before external transfer.
          */
+        // 阅读源码需要学会抓主要矛盾！！！这里就是主要矛盾
         totalSupply = totalSupply - redeemTokens;
         accountTokens[redeemer] = accountTokens[redeemer] - redeemTokens;
 
@@ -553,6 +554,8 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
          *  On success, the cToken has redeemAmount less of cash.
          *  doTransferOut reverts if anything goes wrong, since we can't be sure if side effects occurred.
          */
+        // 这个函数和mintInternal函数中的doTransferIn函数是对应的
+        // 但这里的转移是真的进行了转账，从代码可以看出来。mintInternal中的doTransferIn函数只是记录了用户的cToken数量，并没有实际转移CToken。
         doTransferOut(redeemer, redeemAmount);
 
         /* We emit a Transfer event, and a Redeem event */
