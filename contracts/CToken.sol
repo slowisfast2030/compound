@@ -453,7 +453,9 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
         accountTokens[minter] = accountTokens[minter] + mintTokens;
 
         /* We emit a Mint event, and a Transfer event */
+        // 示例：Mint(我，100ETH，10000CEth)，我存入了100ETH，获得了10000CEth
         emit Mint(minter, actualMintAmount, mintTokens);
+        // 示例：Transfer(CEth合约，我，10000CEth)，CEth合约向我转账了10000CEth
         emit Transfer(address(this), minter, mintTokens);
 
         /* We call the defense hook */
