@@ -17,6 +17,8 @@ import "./CTokenInterfaces.sol";
 user --> proxy contract(storage layer) --> target contract(logic layer)
               CErc20Delegator                    CErc20Delegate 
 
+ 这种代理模式的基本原理主要是用到了 delegatecall 函数。
+ 若想深入理解可实现合约升级的代理模式，可查看此文章：https://blog.openzeppelin.com/proxy-patterns/
  */
 
 /**
