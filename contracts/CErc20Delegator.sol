@@ -3,6 +3,22 @@ pragma solidity ^0.8.10;
 
 import "./CTokenInterfaces.sol";
 
+
+/**
+简而言之，ETH 的 cToken 交互入口是 CEther 合约，仅此一份；
+而 ERC20 的 cToken 交互入口则是 CErc20Delegator 合约。
+每种 ERC20 资产都各有一份入口合约。
+ */
+
+/**
+代理合约很重要，可实现数据与逻辑的分离，是保证 CToken 合约可升级的基础。
+使用代理合约后，用户对目标合约的所有调用都通过代理合约，代理合约会将调用请求重定向到目标合约中。
+
+user --> proxy contract(storage layer) --> target contract(logic layer)
+              CErc20Delegator                    CErc20Delegate 
+
+ */
+
 /**
  * @title Compound's CErc20Delegator Contract
  * @notice CTokens which wrap an EIP-20 underlying and delegate to an implementation
