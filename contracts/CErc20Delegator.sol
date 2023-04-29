@@ -444,6 +444,7 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
      */
     function delegateTo(address callee, bytes memory data) internal returns (bytes memory) {
         (bool success, bytes memory returnData) = callee.delegatecall(data);
+        // 这里使用汇编语句的原因是什么？
         assembly {
             if eq(success, 0) {
                 revert(add(returnData, 0x20), returndatasize())
