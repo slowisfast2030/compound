@@ -3,6 +3,18 @@ pragma solidity ^0.8.10;
 
 import "./ErrorReporter.sol";
 import "./ComptrollerStorage.sol";
+
+// 这是个proxy contract，那么implementation contract在哪里呢？
+/**
+Upgrading the contract is usually handled by a function that modifies the implementation contract. 
+In some variants of the pattern, this function is coded into the Proxy directly, and restricted to be called only by an administrator.
+
+This version usually also includes functions to transfer ownership of the proxy to a different address. 
+Compound uses this pattern with an extra twist: 
+the new implementation needs to accept the transfer, to prevent accidental upgrades to invalid contracts.
+ */
+
+
 /**
  * @title ComptrollerCore
  * @dev Storage for the comptroller is at this address, while execution is delegated to the `comptrollerImplementation`.
