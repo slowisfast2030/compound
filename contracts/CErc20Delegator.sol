@@ -14,7 +14,7 @@ import "./CTokenInterfaces.sol";
 代理合约很重要，可实现数据与逻辑的分离，是保证 CToken 合约可升级的基础。
 使用代理合约后，用户对目标合约的所有调用都通过代理合约，代理合约会将调用请求重定向到目标合约中。
 
-user --> proxy contract(storage layer) --> target contract(logic layer)
+user --> proxy contract(storage layer) -->  implementation contract(logic layer)
               CErc20Delegator                    CErc20Delegate 
 
  这种代理模式的基本原理主要是用到了 delegatecall 函数。
