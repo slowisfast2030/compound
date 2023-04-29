@@ -14,14 +14,15 @@ msg.sender ----> Unitroller  -----> ComptrollerG1
  */
 
 /**
-在compound中，要实现由ComptrollerG1升级到ComptrollerG2，其具体的升级步骤为：
-
+//在compound中，要实现由ComptrollerG1升级到ComptrollerG2，其具体的升级步骤为：
 function upgradeTo(address _unitroller, address _comptrollerG2) public {
     Unitroller unitroller = Unitroller(_unitroller);
     require(msg.sender == unitroller.admin());
-//admin 调用Unitroller中的_setPendingImplementation方法，将ComptrollerG2的地址填入
+
+    //admin 调用Unitroller中的_setPendingImplementation方法，将ComptrollerG2的地址填入
     unitroller._setPendingImplementation(_comtrollerG2);
-//admin 调用ComtrollerG2中的_become函数，同意成为Unitroller代理的逻辑实现合约Impl 
+
+    //admin 调用ComtrollerG2中的_become函数，同意成为Unitroller代理的逻辑实现合约Impl 
     ComtrollerG2(_comptrollerG2)._become(unitroller);
 }
  */
