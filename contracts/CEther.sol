@@ -35,6 +35,8 @@ contract CEther is CToken {
         admin = payable(msg.sender);
 
         // 原来如此。CToken中定义的initialize方法，在这里使用了。
+        // 第一次见到在构造函数里出现initialize方法的。从名字来看，和构造函数的语义是一样的，都是进行一些参数初始化的。但却独立出来了。
+        // 主要是因为构造函数只能调用一次。但利率模型，兑换率，名称，符号，精度，审计合约地址，都是可以升级修改的。
         initialize(comptroller_, interestRateModel_, initialExchangeRateMantissa_, name_, symbol_, decimals_);
 
         // Set the proper admin now that initialization is done
