@@ -69,6 +69,7 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
                                                             decimals_));
 
         // New implementations always get set via the settor (post-initialize)
+        // 这个函数就可以用于升级logic contract。注意到，这个函数独立于构造函数，说明可以被调用多次。
         _setImplementation(implementation_, false, becomeImplementationData);
 
         // Set the proper admin now that initialization is done
