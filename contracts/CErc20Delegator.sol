@@ -11,14 +11,16 @@ import "./CTokenInterfaces.sol";
  */
 
 /**
-代理合约很重要，可实现数据与逻辑的分离，是保证 CToken 合约可升级的基础。
+代理合约很重要，可实现【数据与逻辑】的分离，是保证 CToken 合约可升级的基础。
 使用代理合约后，用户对目标合约的所有调用都通过代理合约，代理合约会将调用请求重定向到目标合约中。
 
 user --> proxy contract(storage layer) -->  implementation contract(logic layer)
                CErc20Delegator                       CErc20Delegate 
 
  这种代理模式的基本原理主要是用到了 delegatecall 函数。
- 若想深入理解可实现合约升级的代理模式，可查看此文章：https://blog.openzeppelin.com/proxy-patterns/
+ 若想深入理解可实现合约升级的代理模式，可查看此文章：
+ https://blog.openzeppelin.com/proxy-patterns/
+ https://mp.weixin.qq.com/s?__biz=MzA3NzM5MzgzMA==&mid=2247483936&idx=1&sn=1001953fda0005b1a3f8a33a3f1d8207&chksm=9f53f8e9a82471ff1d29b06a77ac32521773e64b4534606f2e5a3ea97fba84af9808e1a6e6a1&scene=21#wechat_redirect
  */
 
 /**
@@ -54,6 +56,10 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
         admin = payable(msg.sender);
 
         // First delegate gets to initialize the delegator (i.e. storage contract)
+        // 注释写得很清楚。delegator是proxy contractor，也是storage contract。
+        // 下面函数的第一个参数是implementation contract的地址，也就是logic contract。第二个参数是传递给delegatecall的参数。
+        // 这里还有一个隐藏的小彩蛋：如果要在a合约调用b合约的函数，需要在a合约里有b的地址。
+        // 但是这个地址的类型有那种，一种是这里的b合约的地址。还有一种是b合约的合约类型（构造函数中的利率模型地址）。
         delegateTo(implementation_, abi.encodeWithSignature("initialize(address,address,address,uint256,string,string,uint8)",
                                                             underlying_,
                                                             comptroller_,
