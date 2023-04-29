@@ -20,7 +20,6 @@ user --> proxy contract(storage layer) -->  implementation contract(logic layer)
  这种代理模式的基本原理主要是用到了 delegatecall 函数。
  若想深入理解可实现合约升级的代理模式，可查看此文章：
  https://blog.openzeppelin.com/proxy-patterns/
- https://mp.weixin.qq.com/s?__biz=MzA3NzM5MzgzMA==&mid=2247483936&idx=1&sn=1001953fda0005b1a3f8a33a3f1d8207&chksm=9f53f8e9a82471ff1d29b06a77ac32521773e64b4534606f2e5a3ea97fba84af9808e1a6e6a1&scene=21#wechat_redirect
  */
 
 /**
