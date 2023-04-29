@@ -1131,6 +1131,7 @@ abstract contract CToken is CTokenInterface, ExponentialNoError, TokenErrorRepor
         }
 
         // Track the market's current interest rate model
+        // interestRateModel是利率合约的地址，是一个storage variable。这里是将更新前的利率合约地址赋值给oldInterestRateModel。
         oldInterestRateModel = interestRateModel;
 
         // Ensure invoke newInterestRateModel.isInterestRateModel() returns true
