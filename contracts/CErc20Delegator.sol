@@ -15,7 +15,7 @@ import "./CTokenInterfaces.sol";
 使用代理合约后，用户对目标合约的所有调用都通过代理合约，代理合约会将调用请求重定向到目标合约中。
 
 user --> proxy contract(storage layer) -->  implementation contract(logic layer)
-              CErc20Delegator                    CErc20Delegate 
+               CErc20Delegator                       CErc20Delegate 
 
  这种代理模式的基本原理主要是用到了 delegatecall 函数。
  若想深入理解可实现合约升级的代理模式，可查看此文章：https://blog.openzeppelin.com/proxy-patterns/
