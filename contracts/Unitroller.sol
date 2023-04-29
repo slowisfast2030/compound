@@ -36,6 +36,10 @@ contract Unitroller is UnitrollerAdminStorage, ComptrollerErrorReporter {
     }
 
     /*** Admin Functions ***/
+    // 这个函数是用来做升级管理的。
+    // 第一步：在_setPendingImplementation中设置即将升级的合约地址
+    // 第二步：在_acceptImplementation中接受升级
+    // 真是极其巧妙的设计啊！！！
     function _setPendingImplementation(address newPendingImplementation) public returns (uint) {
 
         if (msg.sender != admin) {
