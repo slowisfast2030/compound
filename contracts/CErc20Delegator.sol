@@ -89,6 +89,7 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
             delegateToImplementation(abi.encodeWithSignature("_resignImplementation()"));
         }
 
+        // implementation应该是一个storage variable，存储的是logic contract的地址。
         address oldImplementation = implementation;
         implementation = implementation_;
 
