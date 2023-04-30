@@ -89,6 +89,11 @@ contract Unitroller is UnitrollerAdminStorage, ComptrollerErrorReporter {
 
     constructor() public {
         // Set admin to caller
+        // 当前合约作为proxy contract，有一个storage address: comptrollerImplementation
+        // 这个地址如果在构造函数中赋值，那么就会被写死了，不利于升级
+        // 如果不是看compound源码，我自己会一直认为comptrollerImplementation必须在构造函数中赋值
+        // 也正是因为没有在构造函数中赋值，所以才有了下面的_setPendingImplementation和_acceptImplementation函数
+        // 这也给部署这些合约带来了便利：不必指定部署顺序。当全部部署完后，再将这些合约关联起来即可
         admin = msg.sender;
     }
 
