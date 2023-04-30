@@ -15,6 +15,7 @@ msg.sender ----> Unitroller  -----> ComptrollerG1
 
 /**
 //在compound中，要实现由ComptrollerG1升级到ComptrollerG2，其具体的升级步骤为：
+// 这个函数独立在一个新的合约中
 function upgradeTo(address _unitroller, address _comptrollerG2) public {
     Unitroller unitroller = Unitroller(_unitroller);
     
