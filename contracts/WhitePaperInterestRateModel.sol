@@ -117,5 +117,4 @@ contract WhitePaperInterestRateModel is InterestRateModel {
 1. 这个利率模型是基于白皮书的利率模型，即y = kx + b
 2. 这个利率模型的利率是单利，而不是复利
 3. 不考虑准备金，理解起来会更加简单
-
- */
+*/
