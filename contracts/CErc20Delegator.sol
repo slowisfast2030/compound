@@ -42,6 +42,12 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
      * @param implementation_ The address of the implementation the contract delegates to
      * @param becomeImplementationData The encoded args for becomeImplementation
      */
+    
+    /**
+    comptroller和interestRateModel是可以更换的。
+    当两者存在升级版本时，就可以分别调用_setComptroller(newComptroller) 
+    和_setInterestRateModel(newInterestRateModel)更换为升级后的合约。
+     */
     constructor(address underlying_,
                 ComptrollerInterface comptroller_,
                 InterestRateModel interestRateModel_,
@@ -59,7 +65,9 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
         // 注释写得很清楚。delegator是proxy contractor，也是storage contract。
         // 下面函数的第一个参数是implementation contract的地址，也就是logic contract。第二个参数是传递给delegatecall的参数。
         // 这里还有一个隐藏的小彩蛋：如果要在a合约调用b合约的函数，需要在a合约里有b的地址。
-        // 但是这个地址的类型有那种，一种是这里的b合约的地址。还有一种是b合约的合约类型（构造函数中的利率模型地址）。
+        // 但是这个地址的类型有两种，一种是这里的b合约的地址。还有一种是b合约的合约类型（构造函数中的利率模型地址）。
+        
+        // 去CErc20Delegate合约里找initialize函数。
         delegateTo(implementation_, abi.encodeWithSignature("initialize(address,address,address,uint256,string,string,uint8)",
                                                             underlying_,
                                                             comptroller_,
@@ -432,6 +440,9 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
      * @param newInterestRateModel the new interest rate model to use
      * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
      */
+    // 思考：代理合约和实现合约中有着相同的函数名_setInterestRateModel。
+    // 代理合约中的接口是不变的，但是在实现合约中，函数的实现是可以改变的。
+    // 可以在CErc20Delegate合约中找到_setInterestRateModel函数的实现。
     function _setInterestRateModel(InterestRateModel newInterestRateModel) override public returns (uint) {
         bytes memory data = delegateToImplementation(abi.encodeWithSignature("_setInterestRateModel(address)", newInterestRateModel));
         return abi.decode(data, (uint));
