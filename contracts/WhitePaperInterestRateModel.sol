@@ -71,7 +71,7 @@ contract WhitePaperInterestRateModel is InterestRateModel {
         if (borrows == 0) {
             return 0;
         }
-
+        // 这里减去了准备金，会使得资金使用率变大，从而借款利率和存款利率都增加
         return borrows * BASE / (cash + borrows - reserves);
     }
 
@@ -111,3 +111,11 @@ contract WhitePaperInterestRateModel is InterestRateModel {
         // 总结起来就是：存款利率 = 资金使用率 * 借款利率 *（1 - 储备金率）
     }
 }
+
+/**
+总结：
+1. 这个利率模型是基于白皮书的利率模型，即y = kx + b
+2. 这个利率模型的利率是单利，而不是复利
+3. 不考虑准备金，理解起来会更加简单
+
+ */
