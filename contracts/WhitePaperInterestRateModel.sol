@@ -44,8 +44,13 @@ contract WhitePaperInterestRateModel is InterestRateModel {
     // 这两个参数为何scaled by BASE? 
     // 进而baseRatePerBlock和multiplierPerBlock也scaled by BASE
     // 这两个参数就是y = kx + b中的k和b
-
+    // 部署新的利率模型的时候，会初始化这两个参数
     constructor(uint baseRatePerYear, uint multiplierPerYear) public {
+        // 这里需要进一步理解单利和复利
+        // 单利：只有本金产生利息，利息不产生利息
+        // 复利：本金和利息都产生利息
+        // 这里将年利率除以了一年的区块数，得到了每个区块的利率
+        // 很明显，这里的利率是单利
         baseRatePerBlock = baseRatePerYear / blocksPerYear;
         multiplierPerBlock = multiplierPerYear / blocksPerYear;
 
