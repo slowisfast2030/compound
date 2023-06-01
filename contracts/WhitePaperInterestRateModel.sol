@@ -43,6 +43,7 @@ contract WhitePaperInterestRateModel is InterestRateModel {
     // multiplierPerYear = 0.45 * 1e18
     // 这两个参数为何scaled by BASE? 
     // 进而baseRatePerBlock和multiplierPerBlock也scaled by BASE
+    // 这两个参数就是y = kx + b中的k和b
 
     constructor(uint baseRatePerYear, uint multiplierPerYear) public {
         baseRatePerBlock = baseRatePerYear / blocksPerYear;
