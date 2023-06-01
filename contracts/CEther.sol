@@ -46,6 +46,10 @@ contract CEther is CToken {
     这里给了一个很好的示例：一个合约中需要调用另一个合约的函数。
     在python语言中，如果A类需要调用B类的函数，那么可以在A类的构造函数中，传入B类的实例。或者在A类的某个方法中，传入B类的实例。
     在solidity语言中，如果A合约需要调用B合约的函数，那么可以在A合约的构造函数中，传入B合约的地址。或者在A合约的某个方法中，传入B合约的地址。
+
+    注意：上面存在合约地址和合约实例的隐式转换。
+    InterestRateModel interestRateModel_，
+    这里的interestRateModel_是一个合约地址，但是类型是InterestRateModel。
      */
 
 
