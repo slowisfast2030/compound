@@ -48,6 +48,10 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
     当两者存在升级版本时，就可以分别调用_setComptroller(newComptroller) 
     和_setInterestRateModel(newInterestRateModel)更换为升级后的合约。
      */
+    
+    /**
+    Underlying Token: 即借贷资产，比如 ETH、USDT、USDC、WBTC等，目前 Compound 只开设了 14 种标的资产。
+     */
     constructor(address underlying_,
                 ComptrollerInterface comptroller_,
                 InterestRateModel interestRateModel_,
